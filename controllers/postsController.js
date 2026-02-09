@@ -5,12 +5,18 @@ function index(req, res) {
 }
 
 function show(req, res) {
-  res.send(`Visualizzazione del post ${req.params.id}`);
+    res.send(`Visualizzazione del post ${req.params.id}`);
+}
+
+function store(req, res) {
+    res.send("Creazione di un nuovo post");
 }
 
 
+
 module.exports = {
-    index, 
+    index,
     show,
+    store,
     
 };
