@@ -62,6 +62,9 @@ function destroy(req, res) {
     // Rimuovo il post dall'array
     posts.splice(index, 1);
 
+    // Stampo la lista aggiornata nel terminale
+    console.log("Lista post aggiornata:", posts);
+
     // forziamo status secondo convenzioni REST che chiude anche function
     res.sendStatus(204)
 }
