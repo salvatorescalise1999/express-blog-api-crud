@@ -12,11 +12,16 @@ function store(req, res) {
     res.send("Creazione di un nuovo post");
 }
 
+function update(req, res) {
+    res.send(`Modifica del post ${req.params.id}`);
+}
+
 
 
 module.exports = {
     index,
     show,
     store,
-    
+    update,
+
 };
