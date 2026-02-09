@@ -42,8 +42,56 @@ function update(req, res) {
 
 // DELETE → DELETE /posts/:id
 function destroy(req, res) {
-    res.send(`Cancellazione del post ${req.params.id}`);
+    // Prendo l'id dai parametri della richiesta e lo converto in numero
+    const id = parseInt(req.params.id);
+
+    // Trovo l'indice del post con quell'id
+    const index = posts.findIndex(post => post.id === id);
+
+    // Se il post non esiste, rispondo con 404
+    if (index === -1) {
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "Post non trovato"
+        });
+    }
+
+    // Rimuovo il post dall'array
+    posts.splice(index, 1);
+
+    // forziamo status secondo convenzioni REST che chiude anche function
+    res.sendStatus(204)
 }
+
+
+// function destroy(req, res) {
+//     // recuperiamo l'id dall' URL e trasformiamolo in numero
+//     const id = parseInt(req.params.id)
+
+//     // cerchiamo il pizza tramite id
+//     const pizza = menuPizze.find(pizza => pizza.id === id);
+
+//     // Piccolo controllo
+//     if (!pizza) {
+//         res.status(404);
+
+//         return res.json({
+//             status: 404,
+//             error: "Not Found",
+//             message: "Pizza non trovata"
+//         })
+//     }
+
+//     // Rimuoviamo la pizza dal menu
+//     menuPizze.splice(menuPizze.indexOf(pizza), 1);
+
+//     // forziamo status secondo convenzioni REST che chiude anche function
+//     res.sendStatus(204)
+// }
+
 
 // Esportiamo tutte le funzioni
 
