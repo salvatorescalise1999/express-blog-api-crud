@@ -15,9 +15,8 @@ router.get("/:id", postsController.show);
 
 
 // CREATE → POST /posts
-router.post("/", (req, res) => {
-  res.send("Creazione di un nuovo post");
-});
+router.post("/", postsController.store);
+
 
 // UPDATE → PUT /posts/:id
 router.put("/:id", (req, res) => {
