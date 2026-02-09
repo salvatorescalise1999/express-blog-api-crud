@@ -13,15 +13,12 @@ router.get("/", postsController.index);
 // SHOW → GET /posts/:id
 router.get("/:id", postsController.show);
 
-
 // CREATE → POST /posts
 router.post("/", postsController.store);
 
-
 // UPDATE → PUT /posts/:id
-router.put("/:id", (req, res) => {
-  res.send(`Modifica del post ${req.params.id}`);
-});
+router.put("/:id", postsController.update);
+
 
 // DELETE → DELETE /posts/:id
 router.delete("/:id", (req, res) => {
