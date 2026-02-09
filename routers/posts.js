@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+
 // importiamo i post 
 const posts = require("../data/posts");
 
+const postsController = require("../controllers/postsController");
+
 // INDEX → GET /posts
-router.get("/", (req, res) => {
-  res.send("Lista dei post");
-});
+router.get("/", postsController.index);
+
 
 // SHOW → GET /posts/:id
 router.get("/:id", (req, res) => {
