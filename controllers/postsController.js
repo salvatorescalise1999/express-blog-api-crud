@@ -2,7 +2,7 @@ const posts = require("../data/posts");
 
 // INDEX → GET /posts
 function index(req, res) {
-    res.send("Lista dei post");
+  res.json(posts);
 }
 
 // SHOW → GET /posts/:id
