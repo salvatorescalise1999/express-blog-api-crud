@@ -2,8 +2,20 @@ const posts = require("../data/posts");
 
 // INDEX → GET /posts
 function index(req, res) {
-    res.json(posts);
+    // Inizialmente, tutti i post vengono considerati
+    let filteredPosts = posts;
+
+    // Se arriva un query param 'tag', filtriamo solo i post che contengono quel tag
+    if (req.query.tag) {
+        filteredPosts = posts.filter(
+            post => post.tags.includes(req.query.tag)
+        );
+    }
+
+    // Rispondo con l'array filtrato in formato JSON
+    res.json(filteredPosts);
 }
+
 
 // SHOW → GET /posts/:id
 function show(req, res) {
