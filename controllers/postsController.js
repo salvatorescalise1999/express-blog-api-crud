@@ -16,6 +16,9 @@ function update(req, res) {
     res.send(`Modifica del post ${req.params.id}`);
 }
 
+function destroy(req, res) {
+    res.send(`Cancellazione del post ${req.params.id}`);
+}
 
 
 module.exports = {
@@ -23,5 +26,5 @@ module.exports = {
     show,
     store,
     update,
-
+    destroy,
 };
