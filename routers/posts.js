@@ -10,11 +10,9 @@ const postsController = require("../controllers/postsController");
 // INDEX → GET /posts
 router.get("/", postsController.index);
 
-
 // SHOW → GET /posts/:id
-router.get("/:id", (req, res) => {
-  res.send(`Visualizzazione del post ${req.params.id}`);
-});
+router.get("/:id", postsController.show);
+
 
 // CREATE → POST /posts
 router.post("/", (req, res) => {
