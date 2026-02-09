@@ -19,10 +19,8 @@ router.post("/", postsController.store);
 // UPDATE → PUT /posts/:id
 router.put("/:id", postsController.update);
 
-
 // DELETE → DELETE /posts/:id
-router.delete("/:id", (req, res) => {
-  res.send(`Cancellazione del post ${req.params.id}`);
-});
+router.delete("/:id", postsController.destroy);
+
 
 module.exports = router;
