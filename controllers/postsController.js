@@ -42,6 +42,7 @@ function show(req, res) {
     res.json(post);
 }
 
+
 // CREATE → POST /posts
 function store(req, res) {
 
@@ -56,58 +57,87 @@ function store(req, res) {
         tags: req.body.tags
     };
 
-        // Aggiungiamo il post all'array
-        posts.push(newPost);
+    // Aggiungiamo il post all'array
+    posts.push(newPost);
 
-        // Stampiamo nel terminale per debug
-        console.log("Nuovo post creato:", newPost);
+    // Stampiamo nel terminale per debug
+    console.log("Nuovo post creato:", newPost);
 
-        // Restituiamo lo status corretto e la pizza appena creata
-        res.status(201);
-        res.json(newPost);
+    // Restituiamo lo status corretto e la pizza appena creata
+    res.status(201);
+    res.json(newPost);
+}
+
+
+// UPDATE → PUT /posts/:id
+function update(req, res) {
+
+    // recuperiamo l'id dall' URL e trasformiamolo in numero
+    const id = parseInt(req.params.id)
+
+    // cerchiamo il post tramite id
+    const post = posts.find(post => post.id === id);
+
+    // Piccolo controllo
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
     }
 
-    // UPDATE → PUT /posts/:id
-    function update(req, res) {
-        res.send(`Modifica del post ${req.params.id}`);
+    // Aggiorniamo il post
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    // Controlliamo tutto il blog 
+    console.log(posts)
+
+    // Restituiamo il post appena aggiornato...
+    res.json(post);
+}
+
+
+// DELETE → DELETE /posts/:id
+function destroy(req, res) {
+    // Prendo l'id dai parametri della richiesta e lo converto in numero
+    const id = parseInt(req.params.id);
+
+    // Trovo l'indice del post con quell'id
+    const index = posts.findIndex(post => post.id === id);
+
+    // Se il post non esiste, rispondo con 404
+    if (index === -1) {
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "Post non trovato"
+        });
     }
 
-    // DELETE → DELETE /posts/:id
-    function destroy(req, res) {
-        // Prendo l'id dai parametri della richiesta e lo converto in numero
-        const id = parseInt(req.params.id);
+    // Rimuovo il post dall'array
+    posts.splice(index, 1);
 
-        // Trovo l'indice del post con quell'id
-        const index = posts.findIndex(post => post.id === id);
+    // Stampo la lista aggiornata nel terminale
+    console.log("Lista post aggiornata:", posts);
 
-        // Se il post non esiste, rispondo con 404
-        if (index === -1) {
-            res.status(404);
-
-            return res.json({
-                status: 404,
-                error: "Not Found",
-                message: "Post non trovato"
-            });
-        }
-
-        // Rimuovo il post dall'array
-        posts.splice(index, 1);
-
-        // Stampo la lista aggiornata nel terminale
-        console.log("Lista post aggiornata:", posts);
-
-        // forziamo status secondo convenzioni REST che chiude anche function
-        res.sendStatus(204)
-    }
+    // forziamo status secondo convenzioni REST che chiude anche function
+    res.sendStatus(204)
+}
 
 
-    // Esportiamo tutte le funzioni
+// Esportiamo tutte le funzioni
 
-    module.exports = {
-        index,
-        show,
-        store,
-        update,
-        destroy,
-    };
+module.exports = {
+    index,
+    show,
+    store,
+    update,
+    destroy,
+};
