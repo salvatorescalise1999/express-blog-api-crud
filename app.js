@@ -8,6 +8,9 @@ const postsRouter = require('./routers/posts');
 // Attivo cartella public per uso file statici
 app.use(express.static('public'));
 
+// registro il body-parser per "application/json"...
+app.use(express.json());
+
 // Rotta home
 app.get('/', (req, res) => {
     res.send("<h1>Home blog</h1>")

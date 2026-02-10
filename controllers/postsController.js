@@ -44,6 +44,10 @@ function show(req, res) {
 
 // CREATE → POST /posts
 function store(req, res) {
+    // Stampiamo il body della request
+    console.log("Dati ricevuti:", req.body);
+
+    // Risposta temporanea
     res.send("Creazione di un nuovo post");
 }
 
