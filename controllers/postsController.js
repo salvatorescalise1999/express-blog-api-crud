@@ -44,54 +44,70 @@ function show(req, res) {
 
 // CREATE → POST /posts
 function store(req, res) {
-    // Stampiamo il body della request
-    console.log("Dati ricevuti:", req.body);
+    // Generiamo un nuovo id (ultimo id + 1)
+    const newId = posts[posts.length - 1].id + 1;
 
-    // Risposta temporanea
-    res.send("Creazione di un nuovo post");
-}
+    // Creiamo il nuovo post usando i dati dal body
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
 
-// UPDATE → PUT /posts/:id
-function update(req, res) {
-    res.send(`Modifica del post ${req.params.id}`);
-}
+        // Aggiungiamo il post all'array
+        posts.push(newPost);
 
-// DELETE → DELETE /posts/:id
-function destroy(req, res) {
-    // Prendo l'id dai parametri della richiesta e lo converto in numero
-    const id = parseInt(req.params.id);
+        // Stampiamo nel terminale per debug
+        console.log("Nuovo post creato:", newPost);
 
-    // Trovo l'indice del post con quell'id
-    const index = posts.findIndex(post => post.id === id);
-
-    // Se il post non esiste, rispondo con 404
-    if (index === -1) {
-        res.status(404);
-
-        return res.json({
-            status: 404,
-            error: "Not Found",
-            message: "Post non trovato"
-        });
+        // Restituiamo lo status corretto e la pizza appena creata
+        res.status(201);
+        res.json(newPost);
     }
 
-    // Rimuovo il post dall'array
-    posts.splice(index, 1);
+    // UPDATE → PUT /posts/:id
+    function update(req, res) {
+        res.send(`Modifica del post ${req.params.id}`);
+    }
 
-    // Stampo la lista aggiornata nel terminale
-    console.log("Lista post aggiornata:", posts);
+    // DELETE → DELETE /posts/:id
+    function destroy(req, res) {
+        // Prendo l'id dai parametri della richiesta e lo converto in numero
+        const id = parseInt(req.params.id);
 
-    // forziamo status secondo convenzioni REST che chiude anche function
-    res.sendStatus(204)
-}
+        // Trovo l'indice del post con quell'id
+        const index = posts.findIndex(post => post.id === id);
+
+        // Se il post non esiste, rispondo con 404
+        if (index === -1) {
+            res.status(404);
+
+            return res.json({
+                status: 404,
+                error: "Not Found",
+                message: "Post non trovato"
+            });
+        }
+
+        // Rimuovo il post dall'array
+        posts.splice(index, 1);
+
+        // Stampo la lista aggiornata nel terminale
+        console.log("Lista post aggiornata:", posts);
+
+        // forziamo status secondo convenzioni REST che chiude anche function
+        res.sendStatus(204)
+    }
 
 
-// Esportiamo tutte le funzioni
+    // Esportiamo tutte le funzioni
 
-module.exports = {
-    index,
-    show,
-    store,
-    update,
-    destroy,
-};
+    module.exports = {
+        index,
+        show,
+        store,
+        update,
+        destroy,
+    };
