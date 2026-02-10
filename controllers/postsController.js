@@ -44,8 +44,8 @@ function show(req, res) {
 
 // CREATE → POST /posts
 function store(req, res) {
-    // Generiamo un nuovo id (ultimo id + 1)
-    const newId = posts[posts.length - 1].id + 1;
+
+    const newId = Date.now(); // genera un ID unico basato sul timestamp
 
     // Creiamo il nuovo post usando i dati dal body
     const newPost = {
