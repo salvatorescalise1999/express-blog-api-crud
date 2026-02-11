@@ -22,6 +22,9 @@ function show(req, res) {
     // Prendo l'id dai parametri della richiesta e lo converto in numero
     const id = parseInt(req.params.id);
 
+    // introduciamo un errore a caso per test middelware err 500
+    // throw new Error("Errore di test middleware");
+
     // Cerco il post con l'id corrispondente nell'array posts
     const post = posts.find(p => p.id === id);
 
